@@ -12,10 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+    return view('index');
 });
         // Task 1
-Route::get('/image', 'ImageController@index');
+Route::get('/image', 'ImageController@index')->name('dropzone');
 Route::get('/list', 'ImageController@list');
 Route::post('/upload', 'ImageController@upload');
 

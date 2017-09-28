@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Config;
 use File;
 
 class ImageController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        //        Directory for uploaded pictures
+        Config::set('pictures_dir', env('DIR_FOR_UPLOAD_PICTURES', '/pictures'));
+    }
+
     public function upload(Request $request)
     {
         if(!$request->hasFile('file'))
@@ -25,7 +33,7 @@ class ImageController extends Controller
 
 
         $imagename = time() . '.' . $file->getClientOriginalExtension();
-        $destinationPath = public_path('/pictures');
+        $destinationPath = public_path(Config::get('pictures_dir'));
         $file->move($destinationPath, $imagename);
 
         // Also can use storage directory for upload files
@@ -40,7 +48,7 @@ class ImageController extends Controller
     public function list()
     {
 
-        $files = File::files(public_path() . '/pictures');
+        $files = File::files(public_path() . Config::get('pictures_dir'));
 //        $files = Storage::files('public/pictures');
 
         file_put_contents(public_path() . '/txt/log.txt', $files);
