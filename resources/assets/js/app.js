@@ -16,6 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('image-list', require('./components/ImageList.vue'));
+Vue.component('upload', require('./components/Upload.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -108,50 +108,79 @@ class LoadImageController extends Controller
             $image->move($destinationPath, $input['imagename']);
 
             // open file as image resource
-            $img = Image::make($destinationPath . '/' . $input['imagename']);
-
-            $width = $img->width();
-            $height = $img->height();
 
             if($watermark_type != 'without') {
-
-                $luminance_picture = $this->get_avg_luminance($destinationPath . '/' . $input['imagename'], Config::get('luminance_step'));
-                //            $luminance_picture:  for more correct can to test crop place for $watermark
-
-                if($watermark_type == 'picture'){
-                    $position = $request->position;
-                    $watermark = $this->checkInvertWaterMarkFile($luminance_picture);
-                    if(isset($watermark)){
-                        $img->insert($watermark->opacity(Config::get('watermark_opacity')), $position, 10, 10);
-                    }else{
-                        return redirect()->route('load')->with('status', 'WaterMark Image File not found')->with('type' , 'error');
-                    }
-                }
-
-                if($watermark_type == 'text') {
-//                    Check Font Color for WaterMark Text
-                    if ($luminance_picture > Config::get('luminance_dark_light')) {
-                        $color_font = Config::get('watermark_color_fonts')[0];
-                    } else {
-                        $color_font = Config::get('watermark_color_fonts')[1];
-                    }
-
-                    $font_size = $this->checkWaterMarkFontSize($width);
-                    // write text at position
+                $imagename = $destinationPath . '/' . $input['imagename'];
+                $position = $request->position;
+                if (file_exists(public_path() . '/txt/watermark.txt')){
                     $watermark_text = file_get_contents(public_path() . '/txt/watermark.txt');
-                    $img->text($watermark_text, 10, $height - 20, function ($font) use ($color_font, $font_size) {
-                        $font->file(public_path('fonts/arial.ttf'));
-                        $font->color($color_font);
-                        $font->size($font_size);
-                        //                $font->angle(-45);
-                    });
+                }else{
+                    if($watermark_type == 'text'){
+                        return redirect()->route('load')->with('status', 'Text WaterMark file not found!')->with('type', 'error');
+                    }
+
                 }
 
-                $img->save();
+                $result = $this->insertWaterMark($imagename, $watermark_type, $position, $watermark_text);
+                if($result['result'] == 'error') {
+                    return redirect()->route('load')->with('status', $result['message'])->with('type', 'error');
+                }
             }
         }
         return redirect()->route('load')->with('status', 'The selected image was saved as ' . $input['imagename']);
     }
+
+
+    public function insertWaterMark($imagename, $watermark_type, $position, $watermark_text){
+    //        Insert WanerMark Image OR WanerMark Text to Picture
+        //  $imagename      - Picture File
+        //  $watermark_type - WanerMark Type ( picture / text )
+        //  $position - (top-left/top-right/center/ .... )
+        //  $watermark_text - string
+        //
+
+        $img = Image::make($imagename);
+
+        $width = $img->width();
+        $height = $img->height();
+
+        $luminance_picture = $this->get_avg_luminance($imagename, Config::get('luminance_step'));
+        //            $luminance_picture:  for more correct can to test crop place for $watermark
+
+        if($watermark_type == 'picture'){
+            $watermark = $this->checkInvertWaterMarkFile($luminance_picture);
+            if(isset($watermark)){
+                $img->insert($watermark->opacity(Config::get('watermark_opacity')), $position, 10, 10);
+            }else{
+                return  ['result' => 'error', 'message' => 'WaterMark Image File not found'];
+            }
+        }
+
+        if($watermark_type == 'text') {
+//                    Check Font Color for WaterMark Text
+            if ($luminance_picture > Config::get('luminance_dark_light')) {
+                $color_font = Config::get('watermark_color_fonts')[0];
+            } else {
+                $color_font = Config::get('watermark_color_fonts')[1];
+            }
+
+            $font_size = $this->checkWaterMarkFontSize($width);
+            // write text to position
+
+            $img->text($watermark_text, 10, $height - 20, function ($font) use ($color_font, $font_size) {
+                $font->file(public_path('fonts/arial.ttf'));
+                $font->color($color_font);
+                $font->size($font_size);
+                //                $font->angle(-45);
+            });
+        }
+
+        $img->save();
+        return  ['result' => 'insert', 'message' => 'The WaterMark is on the Image'];
+
+    }
+
+
 
 
     public function checkInvertWaterMarkFile($luminance_picture)
