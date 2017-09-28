@@ -33,6 +33,7 @@ class CropImageController extends Controller
         $v = Validator::make($request->all(), [
             'image_height' => 'required|numeric|max:1000|min:20',
             'image_width' => 'required|numeric|max:1000|min:20',
+            'upload_image' => 'required'
         ]);
 
         if ($v->fails())
@@ -49,7 +50,9 @@ class CropImageController extends Controller
         if($result['result'] == 'error'){
             return redirect()->route('image_crop')->with('crop status', $result['message'])->with('type' , 'error');
         }elseif($result['result'] == 'crop'){
-            return redirect()->route('image_crop')->with('crop status', $result['message']);
+            return redirect()->route('image_crop')
+                ->with('crop status', $result['message'])
+                ->withInput();
         } else{
             return redirect()->route('image_crop')->with('crop status', 'Something went wrong!')->with('type' , 'error');
         }
