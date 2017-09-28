@@ -51,13 +51,11 @@ class ImageController extends Controller
         $files = File::files(public_path() . Config::get('pictures_dir'));
 //        $files = Storage::files('public/pictures');
 
-        file_put_contents(public_path() . '/txt/log.txt', $files);
-
         $output = [];
 
         foreach($files as $file) {
             $filename = basename($file);
-            $output[] = asset('/pictures/' . $filename);
+            $output[] = asset(Config::get('pictures_dir'). '/' . $filename);
 //            $output[] = asset('storage/pictures/' . $filename);
         }
 

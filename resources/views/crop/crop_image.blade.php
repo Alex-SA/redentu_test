@@ -29,14 +29,13 @@
                                                 $files_name[] = pathinfo($file)['basename'];
                                             }
                                             $json_files = json_encode($files_name);
-                                        ?>
-                                        <preview files_all="{{$json_files}}" old_selected="{{old('upload_image')}}"></preview>
+                                            $error_upload_image = '';
+                                            if ($errors->has('upload_image')){
+                                                $error_upload_image = $errors->first('upload_image');
+                                            }
 
-                                        @if ($errors->has('upload_image'))
-                                            <div class="alert alert-danger">
-                                                <strong>{{ $errors->first('upload_image') }}</strong>
-                                            </div>
-                                        @endif
+                                        ?>
+                                        <preview files_all="{{$json_files}}" old_selected="{{old('upload_image')}}" error_upload_image="{{$error_upload_image}}"></preview>
 
                                     </div>
                                 </div>

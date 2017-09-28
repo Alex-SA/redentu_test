@@ -42202,7 +42202,7 @@ exports = module.exports = __webpack_require__(44)(undefined);
 
 
 // module
-exports.push([module.i, "\n.full[data-v-55978f75] {\n    max-width: 1000px;\n    max-height: 750px;\n    height: auto;\n}\nimg[data-v-55978f75] {\n    max-width: 150px;\n    border-radius: 2px;\n    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);\n    transition: width 1s;\n    z-index: 100;\n    position: fixed;\n}\nimg[data-v-55978f75]:hover {\n    cursor: pointer;\n}\n\n", ""]);
+exports.push([module.i, "\n.full[data-v-55978f75] {\n    max-width: 1000px;\n    max-height: 750px;\n    height: auto;\n}\nimg[data-v-55978f75] {\n    max-width: 150px;\n    max-height: 150px;\n    border-radius: 2px;\n    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);\n    transition: width 1s;\n    z-index: 100;\n    position: fixed;\n}\nimg[data-v-55978f75]:hover {\n    cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
@@ -42564,16 +42564,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-
         console.log('Component mounted.');
     },
 
     props: {
         files_all: '',
-        old_selected: ''
+        old_selected: '',
+        error_upload_image: ''
     },
     data: function data() {
         return {
@@ -42594,6 +42600,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "col-md-6" }, [
+      _vm._m(0),
+      _vm._v(" "),
       _c("img", {
         class: { full: _vm.fullWidthImage },
         attrs: { src: "/pictures/" + _vm.url, alt: "Preview Selected Image" },
@@ -42649,11 +42657,28 @@ var render = function() {
             _vm._v(_vm._s(file))
           ])
         })
-      )
+      ),
+      _vm._v(" "),
+      _vm.error_upload_image
+        ? _c("div", { staticClass: "alert alert-danger" }, [
+            _c("strong", [_vm._v(_vm._s(_vm.error_upload_image))])
+          ])
+        : _vm._e()
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-offset-2" }, [
+        _c("small", [_vm._v("Click for zoom")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

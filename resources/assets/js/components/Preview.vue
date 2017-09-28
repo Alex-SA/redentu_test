@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="col-md-6">
+            <div class="row"><div class="col-md-offset-2"><small>Click for zoom</small></div></div>
             <img :src="'/pictures/' + url" alt="Preview Selected Image" :class="{ full: fullWidthImage }" @click="fullWidthImage = !fullWidthImage">
         </div>
         <div class="col-md-6">
@@ -8,6 +9,10 @@
             <select name="upload_image" id="upload_image" class="form-control" v-model="url" @click="fullWidthImage = false">
                 <option v-for="file in files" :value="file">{{file}}</option>
             </select>
+
+            <div class="alert alert-danger" v-if="error_upload_image">
+                <strong>{{ error_upload_image }}</strong>
+            </div>
 
         </div>
 
@@ -17,12 +22,12 @@
 <script>
     export default {
         mounted() {
-
             console.log('Component mounted.')
         },
         props: {
             files_all: '',
-            old_selected: ''
+            old_selected: '',
+            error_upload_image: ''
         },
         data(){
             return{
@@ -43,6 +48,7 @@
     }
     img {
         max-width: 150px;
+        max-height: 150px;
         border-radius: 2px;
         box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
         transition: width 1s;
