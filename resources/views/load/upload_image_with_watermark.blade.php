@@ -86,7 +86,11 @@
                                     </div>
                                 @endif
                             </div>
+                            @if(old('watermark') == 'picture')
+                            <div class="col-md-2" style="display: block" id="watermark_position">
+                            @else
                             <div class="col-md-2" style="display: none" id="watermark_position">
+                            @endif
                                 <label for="image" class="col-md-4 control-label">Position</label>
                                 <select name="position" id="position" class="form-control">
                                     <option value="top-left">top-left</option>

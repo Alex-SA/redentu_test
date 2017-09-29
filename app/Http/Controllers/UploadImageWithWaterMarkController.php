@@ -91,7 +91,8 @@ class UploadImageWithWaterMarkController extends Controller
             return redirect()->route('image_with_wm')->with('status', 'Error upload file!')->with('type', 'error');
         }
         return redirect()->route('image_with_wm')
-            ->with('status', 'The selected image was saved as <a href="' . Config::get('pictures_dir') . '/' . $imagename . '" target="_blank">' . $imagename . '</a>');
+            ->with('status', 'The selected image was saved as <a href="' . Config::get('pictures_dir') . '/' . $imagename . '" target="_blank">' . $imagename . '</a>')
+            ->withInput();
     }
 
     public function insertWaterMark($imagename, $watermark_type, $position, $watermark_text){
