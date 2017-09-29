@@ -54,30 +54,26 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <form class="form-horizontal" method="POST" action="{{route('watermark.text')}}" >
-                                        {{ csrf_field() }}
+                                    <div class="form-group {{ $errors->has('text') ? ' has-error' : '' }}">
+                                        <label for="text" class="col-md-4 control-label">Text</label>
 
-                                        <div class="form-group {{ $errors->has('text') ? ' has-error' : '' }}">
-                                            <label for="text" class="col-md-4 control-label">Text</label>
-
-                                            <div class="col-md-8">
-                                                <input id="text" class="form-control" name="text" value="">
-                                                @if ($errors->has('text'))
-                                                    <div class="alert alert-danger">
-                                                        <strong>{{ $errors->first('text') }}</strong>
-                                                    </div>
-                                                @endif
-                                            </div>
+                                        <div class="col-md-8">
+                                            <input id="text" class="form-control" name="text" value="">
+                                            @if ($errors->has('text'))
+                                                <div class="alert alert-danger">
+                                                    <strong>{{ $errors->first('text') }}</strong>
+                                                </div>
+                                            @endif
                                         </div>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-md-offset-6">
-                                                <button type="submit" class="btn btn-primary pull-right">
-                                                    Save New WaterMarks
-                                                </button>
-                                            </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <button type="submit" class="btn btn-primary pull-right">
+                                                Save New WaterMarks
+                                            </button>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </form>

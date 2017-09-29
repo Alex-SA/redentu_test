@@ -37,9 +37,3 @@ Route::get('/crop_image', 'CropImageController@index')->name('image_crop');
 Route::post('/crop_image', 'CropImageController@store');
 
 
-        // All-in-One (draft)
-Route::get('/load', 'LoadImageController@index')->name('load');
-Route::post('/load/watermark', 'LoadImageController@watermark')->name('watermark');
-Route::post('/load/text', 'LoadImageController@watermarkText')->name('watermark.text');
-Route::post('/load/image', 'LoadImageController@saveImage')->name('image');
-Route::post('/load/crop', 'LoadImageController@cropImage')->name('crop');

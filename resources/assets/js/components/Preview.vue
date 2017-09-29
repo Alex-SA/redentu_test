@@ -42,7 +42,7 @@
 <style scoped>
     .full {
         max-width: 1000px;
-        max-height: 750px;
+        max-height: 500px;
         height: auto;
 
     }

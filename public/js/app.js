@@ -42202,7 +42202,7 @@ exports = module.exports = __webpack_require__(44)(undefined);
 
 
 // module
-exports.push([module.i, "\n.full[data-v-55978f75] {\n    max-width: 1000px;\n    max-height: 750px;\n    height: auto;\n}\nimg[data-v-55978f75] {\n    max-width: 150px;\n    max-height: 150px;\n    border-radius: 2px;\n    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);\n    transition: width 1s;\n    z-index: 100;\n    position: fixed;\n}\nimg[data-v-55978f75]:hover {\n    cursor: pointer;\n}\n\n", ""]);
+exports.push([module.i, "\n.full[data-v-55978f75] {\n    max-width: 1000px;\n    max-height: 500px;\n    height: auto;\n}\nimg[data-v-55978f75] {\n    max-width: 150px;\n    max-height: 150px;\n    border-radius: 2px;\n    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);\n    transition: width 1s;\n    z-index: 100;\n    position: fixed;\n}\nimg[data-v-55978f75]:hover {\n    cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
