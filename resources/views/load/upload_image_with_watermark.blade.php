@@ -8,14 +8,10 @@
                 <div class="panel-heading">Load Image with WaterMark</div>
                 <div class="panel-body">
                     @if($status = Session::get('status'))
-                        @if(Session::get('type') == 'error')
-                            <div class="alert alert-danger" role="alert">
-                        @else
-                            <div class="alert alert-success" role="alert">
-                        @endif
-                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <div class="alert alert-{{Session::get('type') == 'error' ? "danger" : "success"}}" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 {!!  $status !!}
-                            </div>
+                        </div>
                     @endif
                     <div class="row">
                         <div class="col-md-5">
@@ -86,22 +82,12 @@
                                     </div>
                                 @endif
                             </div>
-                            @if(old('watermark') == 'picture')
-                            <div class="col-md-2" style="display: block" id="watermark_position">
-                            @else
-                            <div class="col-md-2" style="display: none" id="watermark_position">
-                            @endif
+                            <div class="col-md-2" style="display: {{old('watermark') == 'picture' ? "block" : "none"}}" id="watermark_position">
                                 <label for="image" class="col-md-4 control-label">Position</label>
                                 <select name="position" id="position" class="form-control">
-                                    <option value="top-left">top-left</option>
-                                    <option value="top">top</option>
-                                    <option value="top-right">top-right</option>
-                                    <option value="left">left</option>
-                                    <option value="center">center</option>
-                                    <option value="right">right</option>
-                                    <option value="bottom-left">bottom-left</option>
-                                    <option value="bottom">bottom</option>
-                                    <option value="bottom-right">bottom-right</option>
+                                    @foreach($places as $place)
+                                        <option value="{{$place}}" {{old('position') == $place ? "selected" : ""}}>{{$place}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-7">
@@ -131,7 +117,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
